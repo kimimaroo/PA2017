@@ -8,7 +8,6 @@ uint32_t alu_add(uint32_t src, uint32_t dest) {
 	else{
 		cpu.eflags.CF = 0;
 	}
-	cpu.eflags.CF = 1;
 	cpu.eflags.PF = 1;
 	cpu.eflags.AF = 1;
 	cpu.eflags.ZF = 1;
