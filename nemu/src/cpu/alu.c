@@ -13,6 +13,17 @@ int parity_flag_set(uint32_t dest) {
 	return (sum % 2);
 }
 
+int sign_flag_set(uint32_t dest) {
+	int binarynum[32];
+	uint32_t tmp = dest;
+	for(int i = 0; i < 32; i++){
+		if(tmp == 0) break;
+		binarynum[i] = tmp % 2;
+		tmp = tmp / 2;
+	}
+	return binarynum[31];
+}
+
 uint32_t alu_add(uint32_t src, uint32_t dest) {
 	dest = src + dest;
 	if(dest < src){
@@ -22,9 +33,9 @@ uint32_t alu_add(uint32_t src, uint32_t dest) {
 		cpu.eflags.CF = 0;
 	}
 	cpu.eflags.PF = parity_flag_set(dest);
-	cpu.eflags.AF = 1;
-	cpu.eflags.ZF = 1;
-	cpu.eflags.SF = 1;
+	if(dest == 0) cpu.eflags.ZF = 1;
+	else cpi.eflags.ZF = 0;
+	cpu.eflags.SF = sign_flag_set(dest);
 	cpu.eflags.OF = 1;
 	return dest;
 }
