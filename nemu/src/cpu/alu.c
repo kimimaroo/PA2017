@@ -25,8 +25,8 @@ int sign_flag_set(uint32_t dest) {
 }
 
 uint32_t alu_add(uint32_t src, uint32_t dest) {
-	dest_sign = sign_flag_set(dest);
-	src_sign = src_flag_set(src);
+	int dest_sign = sign_flag_set(dest);
+	int src_sign = sign_flag_set(src);
 	dest = src + dest;
 	if(dest < src){
 		cpu.eflags.CF = 1;
