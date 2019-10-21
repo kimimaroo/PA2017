@@ -2,6 +2,12 @@
 
 uint32_t alu_add(uint32_t src, uint32_t dest) {
 	dest = src + dest;
+	if(dest < src){
+		cpu.eflags.CF = 1;
+	}
+	else{
+		cpu.eflags.CF = 0;
+	}
 	cpu.eflags.CF = 1;
 	cpu.eflags.PF = 1;
 	cpu.eflags.AF = 1;
