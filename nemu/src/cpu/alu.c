@@ -36,7 +36,7 @@ uint32_t alu_add(uint32_t src, uint32_t dest) {
 	if(dest == 0) cpu.eflags.ZF = 1;
 	else cpu.eflags.ZF = 0;
 	cpu.eflags.SF = sign_flag_set(dest);
-	cpu.eflags.OF = 1;
+	cpu.eflags.OF = cpu.eflags.CF;
 	return dest;
 }
 
