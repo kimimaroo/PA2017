@@ -25,6 +25,8 @@ int sign_flag_set(uint32_t dest) {
 }
 
 uint32_t alu_add(uint32_t src, uint32_t dest) {
+	dest_sign = sign_flag_set(dest);
+	src_sign = src_flag_set(src);
 	dest = src + dest;
 	if(dest < src){
 		cpu.eflags.CF = 1;
@@ -36,7 +38,12 @@ uint32_t alu_add(uint32_t src, uint32_t dest) {
 	if(dest == 0) cpu.eflags.ZF = 1;
 	else cpu.eflags.ZF = 0;
 	cpu.eflags.SF = sign_flag_set(dest);
-	cpu.eflags.OF = cpu.eflags.CF;
+	if(dest_sign == src_sign && cpu.eflags.SF != dest_sign){
+		cpu.eflags.OF = 1;
+	}
+	else{
+		cpu.eflags.OF = 0;
+	}
 	return dest;
 }
 
