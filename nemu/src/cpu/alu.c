@@ -9,7 +9,9 @@ int parity_flag_set(uint32_t dest) {
 		tmp = tmp / 2;
 	}
 	int sum = 1;
-	for(int i = 0; i < 8; i++) sum += binarynum[i];
+	for(int i = 0; i < 8; i++){
+		sum += binarynum[i];
+	}
 	return (sum % 2);
 }
 
@@ -35,8 +37,12 @@ uint32_t alu_add(uint32_t src, uint32_t dest) {
 		cpu.eflags.CF = 0;
 	}
 	cpu.eflags.PF = parity_flag_set(dest);
-	if(dest == 0) cpu.eflags.ZF = 1;
-	else cpu.eflags.ZF = 0;
+	if(dest == 0){
+		cpu.eflags.ZF = 1;
+	}
+	else{
+		cpu.eflags.ZF = 0;
+	}
 	cpu.eflags.SF = sign_flag_set(dest);
 	if(dest_sign == src_sign && cpu.eflags.SF != dest_sign){
 		cpu.eflags.OF = 1;
