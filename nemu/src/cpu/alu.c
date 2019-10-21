@@ -1,5 +1,17 @@
 #include "cpu/cpu.h"
 
+int parity_flag_set(uint32_t dest) {
+	int binarynum[32];
+	for(int i=0;i<32;i++){
+		if(dest==0) break;
+		binarynum[i]=dest % 2;
+		dest=dest/2;
+	}
+	int sum=0;
+	for(int i=0;i<8;i++) sum+=binarynum[i];
+	return (sum % 2);
+}
+
 uint32_t alu_add(uint32_t src, uint32_t dest) {
 	dest = src + dest;
 	if(dest < src){
@@ -8,6 +20,15 @@ uint32_t alu_add(uint32_t src, uint32_t dest) {
 	else{
 		cpu.eflags.CF = 0;
 	}
+	int binarynum[32];
+	for(int i=0;i<32;i++){
+		if(dest==0) break;
+		binarynum[i]=dest % 2;
+		dest=dest/2;
+	}
+	int sum=0;
+	for(int i=0;i<8;i++) sum+=binarynum[i];
+	return (sum % 2);
 	cpu.eflags.PF = 1;
 	cpu.eflags.AF = 1;
 	cpu.eflags.ZF = 1;
