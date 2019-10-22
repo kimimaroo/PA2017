@@ -1,5 +1,20 @@
 #include "cpu/cpu.h"
 
+int carry_flag_set(uint64_t dest_64) {
+	int binarynum[33];
+	uint64_t tmp = dest;
+	for(int i = 0; i < 33; i++){
+		if(tmp == 0){
+			binarynum[i] = 0;
+		}
+		else{
+			binarynum[i] = tmp % 2;
+			tmp = tmp / 2;
+		}
+	}
+	return binarynum[32];
+}
+
 int parity_flag_set(uint32_t dest) {
 	int binarynum[32];
 	uint32_t tmp = dest;
@@ -64,14 +79,9 @@ uint32_t alu_add(uint32_t src, uint32_t dest) {
 uint32_t alu_adc(uint32_t src, uint32_t dest) {
 	int dest_sign = sign_flag_set(dest);
 	int src_sign = sign_flag_set(src);
-	int dest_ori = dest;
+	uint64_t dest_64 = src + dest + cpu.eflags.CF;
 	dest = src + dest + cpu.eflags.CF;
-	if(dest == src + dest_ori + cpu.eflags.CF - 42949672965 - 1){
-		cpu.eflags.CF = 1;
-	}
-	else{
-		cpu.eflags.CF = 0;
-	}
+	cpu.eflags.CF = carry_flag_set(dest_64);
 	cpu.eflags.PF = parity_flag_set(dest);
 	if(dest == 0){
 		cpu.eflags.ZF = 1;
