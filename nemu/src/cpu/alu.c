@@ -2,7 +2,7 @@
 
 int carry_flag_set(uint64_t dest_64) {
 	int binarynum[33];
-	uint64_t tmp = dest;
+	uint64_t tmp = dest_64;
 	for(int i = 0; i < 33; i++){
 		if(tmp == 0){
 			binarynum[i] = 0;
