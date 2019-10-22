@@ -62,9 +62,30 @@ uint32_t alu_add(uint32_t src, uint32_t dest) {
 }
 
 uint32_t alu_adc(uint32_t src, uint32_t dest) {
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	assert(0);
-	return 0;
+	int dest_sign = sign_flag_set(dest);
+	int src_sign = sign_flag_set(src);
+	dest = src + dest + cpu.eflags.CF;
+	if(dest < src){
+		cpu.eflags.CF = 1;
+	}
+	else{
+		cpu.eflags.CF = 0;
+	}
+	cpu.eflags.PF = parity_flag_set(dest);
+	if(dest == 0){
+		cpu.eflags.ZF = 1;
+	}
+	else{
+		cpu.eflags.ZF = 0;
+	}
+	cpu.eflags.SF = sign_flag_set(dest);
+	if(dest_sign == src_sign && cpu.eflags.SF != dest_sign){
+		cpu.eflags.OF = 1;
+	}
+	else{
+		cpu.eflags.OF = 0;
+	}
+	return dest;
 }
 
 uint32_t alu_sub(uint32_t src, uint32_t dest) {
