@@ -84,7 +84,7 @@ uint32_t alu_adc(uint32_t src, uint32_t dest) {
 	printf("%llu\n", dest_64);
 	dest = src + dest + cpu.eflags.CF;
 	printf("%d\n", dest);
-	cpu.eflags.CF = 1;
+	cpu.eflags.CF = (dest_64 == dest)? 0 : 1;
 	cpu.eflags.PF = parity_flag_set(dest);
 	if(dest == 0){
 		cpu.eflags.ZF = 1;
