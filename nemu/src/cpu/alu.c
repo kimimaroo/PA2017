@@ -66,7 +66,7 @@ uint32_t alu_adc(uint32_t src, uint32_t dest) {
 	int src_sign = sign_flag_set(src);
 	int dest_ori = dest;
 	dest = src + dest + cpu.eflags.CF;
-	if(dest == src + dest_ori + cpu.eflags.CF - 4294967296‬){
+	if(dest == src + dest_ori + cpu.eflags.CF - 42949672965 - 1){
 		cpu.eflags.CF = 1;
 	}
 	else{
