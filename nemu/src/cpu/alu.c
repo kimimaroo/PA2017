@@ -4,9 +4,13 @@ int parity_flag_set(uint32_t dest) {
 	int binarynum[32];
 	uint32_t tmp = dest;
 	for(int i = 0; i < 32; i++){
-		if(tmp == 0) break;
-		binarynum[i] = tmp % 2;
-		tmp = tmp / 2;
+		if(tmp == 0){
+			binarynum[i] = 0;
+		}
+		else{
+			binarynum[i] = tmp % 2;
+			tmp = tmp / 2;
+		}
 	}
 	int sum = 1;
 	for(int i = 0; i < 8; i++){
@@ -19,9 +23,13 @@ int sign_flag_set(uint32_t dest) {
 	int binarynum[32];
 	uint32_t tmp = dest;
 	for(int i = 0; i < 32; i++){
-		if(tmp == 0) break;
-		binarynum[i] = tmp % 2;
-		tmp = tmp / 2;
+		if(tmp == 0){
+			binarynum[i] = 0;
+		}
+		else{
+			binarynum[i] = tmp % 2;
+			tmp = tmp / 2;
+		}
 	}
 	return binarynum[31];
 }
@@ -59,7 +67,6 @@ uint32_t alu_adc(uint32_t src, uint32_t dest) {
 	return 0;
 }
 
-
 uint32_t alu_sub(uint32_t src, uint32_t dest) {
 	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
 	assert(0);
@@ -71,7 +78,6 @@ uint32_t alu_sbb(uint32_t src, uint32_t dest) {
 	assert(0);
 	return 0;
 }
-
 
 uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size) {
 	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
