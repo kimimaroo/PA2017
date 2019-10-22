@@ -83,7 +83,7 @@ uint32_t alu_adc(uint32_t src, uint32_t dest) {
 	uint64_t dest_64 = src + dest + cpu.eflags.CF;
 	printf("%llu\n", dest_64);
 	dest = src + dest + cpu.eflags.CF;
-	printf("%lu\n", dest);
+	printf("%d\n", dest);
 	cpu.eflags.CF = 1;
 	cpu.eflags.PF = parity_flag_set(dest);
 	if(dest == 0){
