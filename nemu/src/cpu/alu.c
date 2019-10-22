@@ -66,10 +66,10 @@ uint32_t alu_adc(uint32_t src, uint32_t dest) {
 	int src_sign = sign_flag_set(src);
 	dest = src + dest + cpu.eflags.CF;
 	if(dest < src){
-		cpu.eflags.CF = 1;
+		cpu.eflags.CF = 1 | cpu.eflags.CF;
 	}
 	else{
-		cpu.eflags.CF = 0;
+		cpu.eflags.CF = 0 | cpu.eflags.CF;
 	}
 	cpu.eflags.PF = parity_flag_set(dest);
 	if(dest == 0){
