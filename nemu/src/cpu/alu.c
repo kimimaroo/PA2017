@@ -64,7 +64,7 @@ uint32_t alu_add(uint32_t src, uint32_t dest) {
 uint32_t alu_adc(uint32_t src, uint32_t dest) {
 	int dest_sign = sign_flag_set(dest);
 	int src_sign = sign_flag_set(src);
-	dest_ori = dest;
+	int dest_ori = dest;
 	dest = src + dest + cpu.eflags.CF;
 	if(dest == src + dest_ori + cpu.eflags.CF - 4294967296‬){
 		cpu.eflags.CF = 1;
