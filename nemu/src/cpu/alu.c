@@ -1,4 +1,5 @@
 #include "cpu/cpu.h"
+#include <stdio.h>
 
 int carry_flag_set(uint64_t dest_64) {
 	int binarynum[33];
