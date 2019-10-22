@@ -79,8 +79,10 @@ uint32_t alu_add(uint32_t src, uint32_t dest) {
 uint32_t alu_adc(uint32_t src, uint32_t dest) {
 	int dest_sign = sign_flag_set(dest);
 	int src_sign = sign_flag_set(src);
-	// uint64_t dest_64 = src + dest + cpu.eflags.CF;
+	uint64_t dest_64 = src + dest + cpu.eflags.CF;
+	printf(dest_64\n);
 	dest = src + dest + cpu.eflags.CF;
+	printf(dest\n);
 	cpu.eflags.CF = 1;
 	cpu.eflags.PF = parity_flag_set(dest);
 	if(dest == 0){
