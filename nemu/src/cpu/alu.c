@@ -41,26 +41,10 @@ uint32_t alu_add(uint32_t src, uint32_t dest) {
 	int src_sign = sign_flag_set(src);
 	dest = src + dest;
 	cpu.eflags.CF = (dest < src)? 1 : 0;
-	// if(dest < src){
-	// 	cpu.eflags.CF = 1;
-	// }
-	// else{
-	// 	cpu.eflags.CF = 0;
-	// }
 	cpu.eflags.PF = parity_flag_set(dest);
-	if(dest == 0){
-		cpu.eflags.ZF = 1;
-	}
-	else{
-		cpu.eflags.ZF = 0;
-	}
+	cpu.eflags.ZF = (dest == 0)? 1 : 0;
 	cpu.eflags.SF = sign_flag_set(dest);
-	if(dest_sign == src_sign && cpu.eflags.SF != dest_sign){
-		cpu.eflags.OF = 1;
-	}
-	else{
-		cpu.eflags.OF = 0;
-	}
+	cpu.eflags.OF = (dest_sign == src_sign && cpu.eflags.SF != dest_sign)? 1 : 0;
 	return dest;
 }
 
