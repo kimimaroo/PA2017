@@ -54,35 +54,15 @@ uint32_t alu_adc(uint32_t src, uint32_t dest) {
 	uint32_t dest_ori = dest;
 	dest = src + dest + cpu.eflags.CF;
 	if(src==4294967295)	{
-		if(dest_ori >=1 || cpu.eflags.CF >= 1){
-			cpu.eflags.CF = 1;
-		}
-		else{
-			cpu.eflags.CF = 0;
-		}
+		cpu.eflags.CF = (dest_ori >=1 || cpu.eflags.CF >= 1)? 1 : 0;
 	}
 	else{
-		if(dest < src + cpu.eflags.CF){
-			cpu.eflags.CF = 1;
-		}
-	else{
-			cpu.eflags.CF = 0;
-		}
+		cpu.eflags.CF = (dest < src + cpu.eflags.CF)? 1 : 0;
 	}
 	cpu.eflags.PF = parity_flag_set(dest);
-	if(dest == 0){
-		cpu.eflags.ZF = 1;
-	}
-	else{
-		cpu.eflags.ZF = 0;
-	}
+	cpu.eflags.ZF = (dest == 0)? 1 : 0;
 	cpu.eflags.SF = sign_flag_set(dest);
-	if(dest_sign == src_sign && cpu.eflags.SF != dest_sign){
-		cpu.eflags.OF = 1;
-	}
-	else{
-		cpu.eflags.OF = 0;
-	}
+	cpu.eflags.OF = (dest_sign == src_sign && cpu.eflags.SF != dest_sign)? 1 : 0;
 	return dest;
 }
 
