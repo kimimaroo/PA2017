@@ -71,7 +71,7 @@ uint32_t alu_sub(uint32_t src, uint32_t dest) {
 	int src_sign = sign_flag_set(src)? 0 : 1;
 	uint32_t dest_ori = dest;
 	dest = dest - src;
-	cpu.eflags.CF = (dest > dest_ori)? 1 : 0;
+	cpu.eflags.CF = (dest_ori < src)? 1 : 0;
 	cpu.eflags.PF = parity_flag_set(dest);
 	cpu.eflags.ZF = (dest == 0)? 1 : 0;
 	cpu.eflags.SF = sign_flag_set(dest);
@@ -80,9 +80,21 @@ uint32_t alu_sub(uint32_t src, uint32_t dest) {
 }
 
 uint32_t alu_sbb(uint32_t src, uint32_t dest) {
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	assert(0);
-	return 0;
+	int dest_sign = sign_flag_set(dest);
+	int src_sign = sign_flag_set(src)? 0 : 1;
+	uint32_t dest_ori = dest;
+	dest = dest - src - cpu.eflags.CF;
+	if(src==4294967295)	{
+		cpu.eflags.CF = (dest_ori >=1 || cpu.eflags.CF >= 1)? 1 : 0;
+	}
+	else{
+		cpu.eflags.CF = (dest > dest_ori - cpu.eflags.CF)? 1 : 0;
+	}
+	cpu.eflags.PF = parity_flag_set(dest);
+	cpu.eflags.ZF = (dest == 0)? 1 : 0;
+	cpu.eflags.SF = sign_flag_set(dest);
+	cpu.eflags.OF = (dest_sign == src_sign && cpu.eflags.SF != dest_sign)? 1 : 0;
+	return dest;
 }
 
 uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size) {
