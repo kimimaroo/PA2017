@@ -79,9 +79,12 @@ uint32_t alu_add(uint32_t src, uint32_t dest) {
 
 uint32_t alu_adc(uint32_t src, uint32_t dest) {
 	int dest_sign = sign_flag_set(dest);
+	printf("destori_d%d\tdestori_u%u\n",dest,dest);
 	int src_sign = sign_flag_set(src);
+	printf("srcori_d%d\tsrcori_u%u\n",src,src);
 	uint32_t dest_ori = dest;
 	dest = src + dest + cpu.eflags.CF;
+	printf("dest_d%d\tdest_u%u\n",dest,dest);
 	if(src==4294967295)	{
 		if(dest_ori + cpu.eflags.CF >= 1){
 			cpu.eflags.CF = 1;
@@ -98,6 +101,7 @@ uint32_t alu_adc(uint32_t src, uint32_t dest) {
 			cpu.eflags.CF = 0;
 		}
 	}
+	printf("CF%d\n", cpu.eflags.CF);
 	cpu.eflags.PF = parity_flag_set(dest);
 	if(dest == 0){
 		cpu.eflags.ZF = 1;
