@@ -1,20 +1,20 @@
 #include "cpu/cpu.h"
 #include <stdio.h>
 
-int carry_flag_set(uint64_t dest_64) {
-	int binarynum[33];
-	uint64_t tmp = dest_64;
-	for(int i = 0; i < 33; i++){
-		if(tmp == 0){
-			binarynum[i] = 0;
-		}
-		else{
-			binarynum[i] = tmp % 2;
-			tmp = tmp / 2;
-		}
-	}
-	return binarynum[32];
-}
+// int carry_flag_set(uint64_t dest_64) {
+// 	int binarynum[33];
+// 	uint64_t tmp = dest_64;
+// 	for(int i = 0; i < 33; i++){
+// 		if(tmp == 0){
+// 			binarynum[i] = 0;
+// 		}
+// 		else{
+// 			binarynum[i] = tmp % 2;
+// 			tmp = tmp / 2;
+// 		}
+// 	}
+// 	return binarynum[32];
+// }
 
 int parity_flag_set(uint32_t dest) {
 	int binarynum[32];
@@ -78,14 +78,26 @@ uint32_t alu_add(uint32_t src, uint32_t dest) {
 }
 
 uint32_t alu_adc(uint32_t src, uint32_t dest) {
-	printf("src=%d\n", src);
-	printf("destori=%d\n", dest);
 	int dest_sign = sign_flag_set(dest);
 	int src_sign = sign_flag_set(src);
-	uint64_t dest_64 = src + dest + cpu.eflags.CF;
-	printf("dest_64=%llu\n", dest_64);
+	uint32_t dest_ori = dest;
 	dest = src + dest + cpu.eflags.CF;
-	printf("dest=%d\n", dest);
+	if(src==4294967295)	{
+		if(dest_ori + cpu.eflags.CF >= 1){
+			cpu.eflags.CF = 1;
+		}
+		else{
+			cpu.eflags.CF = 0;
+		}
+	}
+	else{
+		if(dest < src + cpu.eflags.CF){
+			cpu.eflags.CF = 1;
+		}
+	else{
+			cpu.eflags.CF = 0;
+		}
+	}
 	cpu.eflags.CF = (dest_64 == dest)? 0 : 1;
 	printf("%d\n", cpu.eflags.CF);
 	cpu.eflags.PF = parity_flag_set(dest);
