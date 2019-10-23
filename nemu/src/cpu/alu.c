@@ -164,9 +164,18 @@ uint32_t alu_or(uint32_t src, uint32_t dest) {
 }
 
 uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size) {
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	assert(0);
-	return 0;
+	assert(data_size == 8 || data_size == 16 || data_size == 32);
+    
+    uint32_t result = dest << src;
+
+    //set eflags
+    cpu.eflags.CF = (src >= data_size) ? 0: (dest >> (data_size -src)) & 0x1;
+    cpu.eflags.ZF = result == 0;
+    cpu.eflags.SF = result >> (data_size - 1);
+    cpu.eflags.PF = check_PF(result);
+    if (src == 1) cpu.eflags.OF = dest >> (data_size - 1);
+
+	return result;
 }
 
 uint32_t alu_shr(uint32_t src, uint32_t dest, size_t data_size) {
