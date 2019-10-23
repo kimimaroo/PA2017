@@ -86,7 +86,7 @@ uint32_t alu_adc(uint32_t src, uint32_t dest) {
 	dest = src + dest + cpu.eflags.CF;
 	printf("dest_d%d\tdest_u%u\n",dest,dest);
 	if(src==4294967295)	{
-		if(dest_ori + cpu.eflags.CF >= 1){
+		if(dest_ori >=1 || cpu.eflags.CF >= 1){
 			cpu.eflags.CF = 1;
 		}
 		else{
