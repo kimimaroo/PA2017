@@ -68,7 +68,7 @@ uint32_t alu_adc(uint32_t src, uint32_t dest) {
 
 uint32_t alu_sub(uint32_t src, uint32_t dest) {
 	int dest_sign = sign_flag_set(dest);
-	int src_sign = sign_flag_set(src);
+	int src_sign = sign_flag_set(src)? 0 : 1;
 	uint32_t dest_ori = dest;
 	dest = dest - src;
 	cpu.eflags.CF = (dest > dest_ori)? 1 : 0;
