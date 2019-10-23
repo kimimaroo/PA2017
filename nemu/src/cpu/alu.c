@@ -134,7 +134,7 @@ int32_t alu_imod(int64_t src, int64_t dest) {
 }
 
 uint32_t alu_and(uint32_t src, uint32_t dest) {
-	dest = dest && src;
+	dest = dest & src;
 	// cpu.eflags.CF = 0;
 	// cpu.eflags.OF = 0;
 	// cpu.eflags.PF = parity_flag_set(dest);
