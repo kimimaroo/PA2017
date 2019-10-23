@@ -84,13 +84,14 @@ uint32_t alu_sbb(uint32_t src, uint32_t dest) {
 	int src_sign = sign_flag_set(src)? 0 : 1;
 	uint32_t dest_ori = dest;
 	dest = dest - src - cpu.eflags.CF;
-	// printf("destori%u\tsrcori%u\tCFori%d\t", dest_ori,src,cpu.eflags.CF);
+	printf("destori%u\tsrcori%u\tCFori%d\t", dest_ori,src,cpu.eflags.CF);
 	if(src == 4294967295){
 		cpu.eflags.CF = (dest_ori == 4294967295 && cpu.eflags.CF == 0)? 0 : 1;
 	}
 	else{
 		cpu.eflags.CF = (dest < src + cpu.eflags.CF)? 1 : 0;
 	}
+	printf("dest%u\tCF%d\t", dest, cpu.eflags.CF);
 	cpu.eflags.PF = parity_flag_set(dest);
 	cpu.eflags.ZF = (dest == 0)? 1 : 0;
 	cpu.eflags.SF = sign_flag_set(dest);
