@@ -107,12 +107,16 @@ uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size) {
 	uint64_t dest_32 = dest;
 	switch(data_size){
 		case 8:
-			result = src_8 * dest_8;
+			result = src_8 * dest_8;  // 乘积结果为16位，虽然result占64位，但前48位都是0
+			cpu.eflags.CF = result >> 8;
 		case 16:
 			result = src_16 * dest_16;
+			cpu.eflags.CF = result >> 16;
 		case 32:
 			result = src_32 * dest_32;
+			cpu.eflags.CF = result >> 32;
 	}
+	cpu.eflags.OF = cpu.eflags.CF;
 	return result;
 }
 
