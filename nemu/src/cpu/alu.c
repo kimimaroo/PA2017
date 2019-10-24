@@ -125,12 +125,10 @@ uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size) {
 
 int64_t alu_imul(int32_t src, int32_t dest, size_t data_size) {
 	int64_t result = 0;
-	uint16_t src_8 = src & 0xff;
-	uint16_t dest_8 = dest & 0xff;
-	uint32_t src_16 = src & 0xffff;
-	uint32_t dest_16 = dest & 0xffff;
-	uint64_t src_32 = src;
-	uint64_t dest_32 = dest;
+	int8_t src_8 = src & 0xff;
+	int8_t dest_8 = dest & 0xff;
+	int16_t src_16 = src & 0xffff;
+	int16_t dest_16 = dest & 0xffff;
 	switch(data_size){
 		case 8:
 			result = src_8 * dest_8;
@@ -139,7 +137,7 @@ int64_t alu_imul(int32_t src, int32_t dest, size_t data_size) {
 			result = src_16 * dest_16;
 			break;
 		case 32:
-			result = src_32 * dest_32;
+			result = src * dest;
 			break;
 	}
 	return result;
