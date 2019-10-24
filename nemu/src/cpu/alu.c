@@ -164,9 +164,19 @@ uint32_t alu_or(uint32_t src, uint32_t dest) {
 }
 
 uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size) {
-	assert(data_size == 8 || data_size == 16 || data_size == 32);
-    
-    uint32_t result = dest << src;
+	uint32_t result;
+	switch(data_size){
+		case 8:
+			result = dest << (src & 0xff);
+			break;
+		case 16:
+			result = dest << (src & 0xffff);
+			break;
+		case 32:
+			result = dest << src;
+			break;
+
+	}
 
     //set eflags
     cpu.eflags.CF = (src >= data_size) ? 0: (dest >> (data_size -src)) & 0x1;
