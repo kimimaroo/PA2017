@@ -168,23 +168,31 @@ uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size) {
 	uint32_t result = dest;
 	uint8_t dest_8 = dest & 0xff;
 	uint16_t dest_16 = dest & 0xffff;
+	uint8_t result_8 = dest_8 << src;
+	uint16_t result_16 = dest_16 << src;
 	switch(data_size){
 		case 8:  // 只对dest的低8位进行操作操作
-			result = (dest & 0xffffff00) | (dest_8 << src);
+			result = (dest & 0xffffff00) | result_8;
 			cpu.eflags.CF = (dest_8 << (src - 1)) >= 128;
+			cpu.eflags.PF = parity_flag_set(result_8);
+			cpu.eflags.ZF = (result_8 == 0)? 1 : 0;
+			cpu.eflags.SF = result_8 >= 128;
 			break;
 		case 16:
-			result = (dest & 0xffff0000) | (dest_16 << src);
+			result = (dest & 0xffff0000) | result_16;
 			cpu.eflags.CF = (dest_16 << (src - 1)) >= 32768;
+			cpu.eflags.PF = parity_flag_set(result_16);
+			cpu.eflags.ZF = (result_16 == 0)? 1 : 0;
+			cpu.eflags.SF = result_8 >= 32768;
 			break;
 		case 32:
 			result = dest << src;
 			cpu.eflags.CF = (dest << (src - 1)) >= 2147483648;
+			cpu.eflags.PF = parity_flag_set(result);
+			cpu.eflags.ZF = (result == 0)? 1 : 0;
+			cpu.eflags.SF = result_8 >= 2147483648;
 			break;
 	}
-	cpu.eflags.PF = parity_flag_set(result);
-	cpu.eflags.ZF = (dest == 0)? 1 : 0;
-	cpu.eflags.SF = sign_flag_set(result);
 	return result;
 }
 
