@@ -1085,7 +1085,7 @@ void alu_test_mul() {
 			printf("oracle eflags CF = %d, PF = %d, ZF = %d, SF = %d, OF = %d\n", test_eflags.CF, test_eflags.PF, test_eflags.ZF, test_eflags.SF, test_eflags.OF);
 			printf("nemu   eflags CF = %d, PF = %d, ZF = %d, SF = %d, OF = %d\n", cpu.eflags.CF, cpu.eflags.PF, cpu.eflags.ZF, cpu.eflags.SF, cpu.eflags.OF);
 			
-			printf("a = %x, b= %x, res = %d, res_asm = %x\n", a, b, (int32_t)res, (res_asm_a | (res_asm_d << 16)));
+			printf("a = %x, b= %x, res = %d, res_asm = %d\n", a, b, (int32_t)res, (res_asm_a | (res_asm_d << 16)));
 			temp_a = res_asm_a;
 			temp_d = res_asm_d;
 			assert(res == (temp_a | (temp_d << 32)));
