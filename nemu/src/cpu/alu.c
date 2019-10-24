@@ -109,7 +109,7 @@ uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size) {
 		case 8:
 			result = src_8 * dest_8;  // 乘积结果为16位，虽然result占64位，但前48位都是0
 			cpu.eflags.CF = (result >> 8);
-			printf("result%x\t,CF%x\n", result,result>>8);
+			printf("result%llu\t,CF%llu\n", result,result>>8);
 		case 16:
 			result = src_16 * dest_16;
 			cpu.eflags.CF = (result >> 16);
