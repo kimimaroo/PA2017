@@ -154,9 +154,10 @@ int32_t alu_idiv(int64_t src, int64_t dest, size_t data_size) {
 }
 
 uint32_t alu_mod(uint64_t src, uint64_t dest) {
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	assert(0);
-	return 0;
+	uint32_t result = 0;
+	assert(src);
+	result = dest % src;
+	return result;
 }
 
 int32_t alu_imod(int64_t src, int64_t dest) {
