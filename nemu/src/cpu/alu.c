@@ -105,6 +105,7 @@ uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size) {
 	uint32_t dest_16 = dest & 0xffff;
 	uint64_t src_32 = src;
 	uint64_t dest_32 = dest;
+	printf("%d\n", data_size);
 	switch(data_size){
 		case 8:
 			result = src_8 * dest_8;  // 乘积结果为16位，虽然result占64位，但前48位都是0
