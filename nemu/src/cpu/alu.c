@@ -111,7 +111,7 @@ uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size) {
 		case 16:
 			result = src_16 * dest_16;
 		case 32:
-			result = src * dest;
+			result = src_32 * dest_32;
 	}
 	return result;
 }
