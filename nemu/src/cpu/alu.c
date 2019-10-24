@@ -229,7 +229,7 @@ uint32_t alu_shr(uint32_t src, uint32_t dest, size_t data_size) {
 }
 
 uint32_t alu_sar(uint32_t src, uint32_t dest, size_t data_size) {
-	uint32_t result = dest;
+	int32_t result = dest;
 	int8_t dest_8 = dest & 0xff;
 	int16_t dest_16 = dest & 0xffff;
 	int32_t dest_32 = dest;
@@ -255,7 +255,7 @@ uint32_t alu_sar(uint32_t src, uint32_t dest, size_t data_size) {
 			cpu.eflags.CF = (dest_32 >> (src - 1)) % 2;
 			cpu.eflags.PF = parity_flag_set(result);
 			cpu.eflags.ZF = (result == 0)? 1 : 0;
-			cpu.eflags.SF = result >= 2147483648;
+			cpu.eflags.SF = (uint32_t)(result) >= 2147483648;
 			break;
 	}
 	return result;
