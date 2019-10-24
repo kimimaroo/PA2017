@@ -174,14 +174,14 @@ uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size) {
 	switch(data_size){
 		case 8:  // 只对dest的低8位进行操作操作
 			result = (dest & 0xffffff00) | result_8;
-			cpu.eflags.CF = uint8_t(dest_8 << (src - 1)) >= 128;
+			cpu.eflags.CF = (uint8_t)(dest_8 << (src - 1)) >= 128;
 			cpu.eflags.PF = parity_flag_set(result_8);
 			cpu.eflags.ZF = (result_8 == 0)? 1 : 0;
 			cpu.eflags.SF = result_8 >= 128;
 			break;
 		case 16:
 			result = (dest & 0xffff0000) | result_16;
-			cpu.eflags.CF = uint16_t(dest_16 << (src - 1)) >= 32768;
+			cpu.eflags.CF = (uint16_t)(dest_16 << (src - 1)) >= 32768;
 			cpu.eflags.PF = parity_flag_set(result_16);
 			cpu.eflags.ZF = (result_16 == 0)? 1 : 0;
 			cpu.eflags.SF = result_8 >= 32768;
