@@ -166,11 +166,11 @@ uint32_t alu_or(uint32_t src, uint32_t dest) {
 uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size) {
 	uint32_t result;
 	switch(data_size){
-		case 8:
-			result = dest << (src & 0xff);
+		case 8:  // 只对dest的低8位进行操作操作
+			result = (dest & 0xffffff00) | ((dest & 0xff) << src);
 			break;
 		case 16:
-			result = dest << (src & 0xffff);
+			result = (dest & 0xffff0000) | ((dest & 0xffff) << src);
 			break;
 		case 32:
 			result = dest << src;
