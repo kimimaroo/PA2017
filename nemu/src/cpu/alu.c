@@ -98,9 +98,20 @@ uint32_t alu_sbb(uint32_t src, uint32_t dest) {
 }
 
 uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size) {
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	assert(0);
-	return 0;
+	uint64_t result = 0;
+	uint8_t src_8 = src & 0xff;
+	uint8_t dest_8 = dest & 0xff;
+	uint16_t src_16 = src & 0xffff;
+	uint16_t dest_16 = dest & 0xffff;
+	switch(data_size){
+		case 8:
+			result = src_8 * dest_8;
+		case 16:
+			result = src_16 * dest_16;
+		case 32:
+			result = src * dest;
+	}
+	return result;
 }
 
 int64_t alu_imul(int32_t src, int32_t dest, size_t data_size) {
