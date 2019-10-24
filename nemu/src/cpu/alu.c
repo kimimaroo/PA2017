@@ -259,7 +259,7 @@ uint32_t alu_sar(uint32_t src, uint32_t dest, size_t data_size) {
 			cpu.eflags.SF = (uint32_t)(result) >= 2147483648;
 			break;
 	}
-	printf("dest_8%d\tresult_8%d\n", dest_8,result_8);
+	printf("dest_8%d\tresult_8%d\tresult%d\n", dest_8,result_8,result);
 	return result;
 }
 
