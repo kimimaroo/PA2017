@@ -165,13 +165,13 @@ uint32_t alu_or(uint32_t src, uint32_t dest) {
 
 uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size) {
 	uint32_t result;
+	uint8_t dest_8 = dest & 0xff;
+	uint16_t dest_16 = dest & 0xffff;
 	switch(data_size){
 		case 8:  // 只对dest的低8位进行操作操作
-			uint8_t dest_8 = dest & 0xff;
 			result = (dest & 0xffffff00) | (dest_8 << src);
 			break;
 		case 16:
-			uint16_t dest_16 = dest & 0xffff;
 			result = (dest & 0xffff0000) | (dest_16 << src);
 			break;
 		case 32:
