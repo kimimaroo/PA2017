@@ -245,7 +245,7 @@ uint32_t alu_sar(uint32_t src, uint32_t dest, size_t data_size) {
 			cpu.eflags.SF = result_8 >= 128;
 			break;
 		case 16:
-			result = (dest & 0xffff0000) | result_1;
+			result = (dest & 0xffff0000) | result_16;
 			cpu.eflags.CF = (uint16_t)(dest_16 >> (src - 1)) % 2;
 			cpu.eflags.PF = parity_flag_set(result_16);
 			cpu.eflags.ZF = (result_16 == 0)? 1 : 0;
