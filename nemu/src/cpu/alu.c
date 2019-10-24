@@ -165,7 +165,6 @@ uint32_t alu_or(uint32_t src, uint32_t dest) {
 
 uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size) {
 	// assert(data_size == 8 || data_size == 16 || data_size == 32);
-	// printf("src%u\tdest%u\tdatasize%u\n", src, dest, data_size);
 	uint32_t result = dest;
 	uint8_t dest_8 = dest & 0xff;
 	uint16_t dest_16 = dest & 0xffff;
@@ -194,15 +193,39 @@ uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size) {
 			cpu.eflags.SF = result >= 2147483648;
 			break;
 	}
-	// printf("%d\n", sizeof(dest_8 << (src - 1)));
-	// printf("dest_8%u\tresult_8%u\n", dest_8, result_8);
-	// printf("SF%d\n", cpu.eflags.SF);
 	return result;
 }
 
 uint32_t alu_shr(uint32_t src, uint32_t dest, size_t data_size) {
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	assert(0);
+	uint32_t result = dest;
+	uint8_t dest_8 = dest & 0xff;
+	uint16_t dest_16 = dest & 0xffff;
+	uint8_t result_8 = dest_8 >> src;
+	uint16_t result_16 = dest_16 >> src;
+	switch(data_size){
+		case 8:  // 只对dest的低8位进行操作操作
+			result = (dest & 0xffffff00) | result_8;
+			cpu.eflags.CF = (uint8_t)(dest_8 >> (src - 1)) %2;
+			cpu.eflags.PF = parity_flag_set(result_8);
+			cpu.eflags.ZF = (result_8 == 0)? 1 : 0;
+			cpu.eflags.SF = result_8 >= 128;
+			break;
+		case 16:
+			result = (dest & 0xffff0000) | result_16;
+			cpu.eflags.CF = (uint16_t)(dest_16 >> (src - 1)) % 2;
+			cpu.eflags.PF = parity_flag_set(result_16);
+			cpu.eflags.ZF = (result_16 == 0)? 1 : 0;
+			cpu.eflags.SF = result_16 >= 32768;
+			break;
+		case 32:
+			result = dest >> src;
+			cpu.eflags.CF = (dest >> (src - 1)) % 2;
+			cpu.eflags.PF = parity_flag_set(result);
+			cpu.eflags.ZF = (result == 0)? 1 : 0;
+			cpu.eflags.SF = result >= 2147483648;
+			break;
+	}
+	return result;
 }
 
 uint32_t alu_sar(uint32_t src, uint32_t dest, size_t data_size) {
