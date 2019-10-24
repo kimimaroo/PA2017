@@ -165,7 +165,7 @@ uint32_t alu_or(uint32_t src, uint32_t dest) {
 
 uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size) {
 	// assert(data_size == 8 || data_size == 16 || data_size == 32);
-	printf("src%u\tdest%u\tdatasize%u\n", src, dest, data_size);
+	// printf("src%u\tdest%u\tdatasize%u\n", src, dest, data_size);
 	uint32_t result = dest;
 	uint8_t dest_8 = dest & 0xff;
 	uint16_t dest_16 = dest & 0xffff;
@@ -194,9 +194,9 @@ uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size) {
 			cpu.eflags.SF = result_8 >= 2147483648;
 			break;
 	}
-	printf("%d\n", sizeof(dest_8 << (src - 1)));
-	printf("dest_8%u\tresult_8%u\n", dest_8, result_8);
-	printf("CF%d\n", cpu.eflags.CF);
+	// printf("%d\n", sizeof(dest_8 << (src - 1)));
+	// printf("dest_8%u\tresult_8%u\n", dest_8, result_8);
+	// printf("CF%d\n", cpu.eflags.CF);
 	return result;
 }
 
