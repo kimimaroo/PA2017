@@ -235,7 +235,7 @@ uint32_t alu_sar(uint32_t src, uint32_t dest, size_t data_size) {
 	int32_t dest_32 = dest;
 	uint8_t result_8 = dest_8 >> src;
 	uint16_t result_16 = dest_16 >> src;
-	printf("src%u\tdest%u\tdatasize%u\n", src, dest, data_size);
+	// printf("src%u\tdest%u\tdatasize%u\n", src, dest, data_size);
 	switch(data_size){
 		case 8:  // 只对dest的低8位进行操作操作
 			result = (dest & 0xffffff00) | result_8;
@@ -259,7 +259,7 @@ uint32_t alu_sar(uint32_t src, uint32_t dest, size_t data_size) {
 			cpu.eflags.SF = result >= 2147483648;
 			break;
 	}
-	printf("dest_8%d\tresult_8%d\tresult%d\n", dest_8,result_8,result);
+	// printf("dest_8%d\tresult_8%d\tresult%d\n", dest_8,result_8,result);
 	return result;
 }
 
