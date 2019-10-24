@@ -99,10 +99,12 @@ uint32_t alu_sbb(uint32_t src, uint32_t dest) {
 
 uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size) {
 	uint64_t result = 0;
-	uint8_t src_8 = src & 0xff;
-	uint8_t dest_8 = dest & 0xff;
-	uint16_t src_16 = src & 0xffff;
-	uint16_t dest_16 = dest & 0xffff;
+	uint16_t src_8 = src & 0xff;
+	uint16_t dest_8 = dest & 0xff;
+	uint32_t src_16 = src & 0xffff;
+	uint32_t dest_16 = dest & 0xffff;
+	uint64_t src_32 = src;
+	uint64_t dest_32 = dest;
 	switch(data_size){
 		case 8:
 			result = src_8 * dest_8;
