@@ -194,6 +194,7 @@ uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size) {
 			cpu.eflags.SF = result_8 >= 2147483648;
 			break;
 	}
+	printf("%d\n", dest_8 << (src - 1));
 	printf("dest_8%u\tresult_8%u\n", dest_8, result_8);
 	printf("CF%d\n", cpu.eflags.CF);
 	return result;
