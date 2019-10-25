@@ -30,6 +30,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		if(exp >= 0xff) {
 			/* TODO: assign the number to infinity */
 			sig_grs = 0;
+			exp = 0xff;
 			overflow = true;
 		}
 		if(exp == 0) {
