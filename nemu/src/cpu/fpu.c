@@ -170,6 +170,7 @@ fa.exponent);
 
 	sig_res = sig_a + sig_b;
 	printf("sig_a%x\tsig_b%x\tsig_res%x\n",sig_a,sig_b,sig_res);
+	if(sig_res == 0) { return 0; }
 
 	if(sign(sig_res)){ f.sign = 1; sig_res *= -1; }
 	else { f.sign = 0; }
