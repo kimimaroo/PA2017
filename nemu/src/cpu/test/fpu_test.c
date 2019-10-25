@@ -16,8 +16,8 @@ void fpu_test_add() {
 	for(i = 0 ; i < sizeof(input)/sizeof(float) ; i++) {
 		for(j = 0 ; j < sizeof(input)/sizeof(float) ; j++) {
 			// printf(" == %d ==\n", count++);
-			printf("exp%x\tfrac%x\n",input[i].exponrnt,input[i].fraction);
 			a.fval = input[i];
+			printf("exp%x\tfrac%x\n",a.exponent,a.fraction);
 			b.fval = input[j];
 			res.fval = a.fval + b.fval;
 			res_fpu.val = internal_float_add(b.val, a.val);
