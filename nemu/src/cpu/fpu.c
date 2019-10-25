@@ -11,10 +11,10 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 
 	// normalization
 	bool overflow = false; // true if the result is INFINITY or 0 during normalize
-
+	uint32_t sticky = 0
+	
 	if((sig_grs >> (23 + 3)) > 1 || exp < 0) {
 		// normalize toward right
-		uint32_t sticky = 0
 		while((((sig_grs >> (23 + 3)) > 1) && exp < 0xff) // condition 1
 			|| // or
 			(sig_grs > 0x04 && exp < 0) // condition 2
@@ -69,7 +69,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 
 	if(!overflow) {
 		/* TODO: round up and remove the GRS bits */
-		sig_grs = ((sig_grs & 0x7) < 4) ? sig_grs >> 3 : sig_grs >> 3 + 1;
+		sig_grs = ((sig_grs & 0x7) < 4) ? sig_grs >> 3 : (sig_grs >> 3) + 1;
 		if(sig_grs >> 23 > 1){
 			sig_grs = sig_grs >> 1;
 			exp++;
