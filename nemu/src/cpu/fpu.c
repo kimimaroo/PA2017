@@ -39,7 +39,6 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			sticky = sticky | (sig_grs & 0x1);
 			sig_grs = sig_grs >> 1;
 			sig_grs |= sticky;
-			exp++;
 		}
 		if(exp < 0) { 
 			/* TODO: assign the number to zero */
@@ -60,7 +59,6 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			sticky = sig_grs & 0x1;
 			sig_grs = sig_grs >> 1;
 			sig_grs |= sticky;
-			exp--;
 		}
 	} else if(exp == 0 && sig_grs >> (23 + 3) == 1) {
 		// two denormals result in a normal
@@ -69,15 +67,17 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 
 	if(!overflow) {
 		/* TODO: round up and remove the GRS bits */
-		sig_grs = ((sig_grs & 0x7) < 4) ? sig_grs >> 3 : (sig_grs >> 3) + 1;
+		uint32_t grs = sig_grs & 0x7;
+		sig_grs = sig_grs >> 3;
+		if(grs > 4) { sig_grs += 1; }
+		else if(grs == 4) { sig_grs = (sig_grs % 2) ?  sig_grs + 1 : sig_grs; }
 		if(sig_grs >> 23 > 1){
 			sig_grs = sig_grs >> 1;
 			exp++;
 			if(exp >= 0xff) {
-			/* TODO: assign the number to infinity */
 			sig_grs = 0;
 			overflow = true;
-		}
+			}
 		}
 	}
 
@@ -114,9 +114,7 @@ uint32_t internal_float_add(uint32_t b, uint32_t a) {
 	}
 	if(a == P_ZERO_F || a == N_ZERO_F) { return b; }
 	if(b == P_ZERO_F || b == N_ZERO_F) { return a; }
-	printf("a%d\tb%d\n", a,b);
 
-	printf("a%x\tb%x\n", a,b);
 	FLOAT f, fa, fb;
 	fa.val = a;
 	fb.val = b;
@@ -150,7 +148,6 @@ uint32_t internal_float_add(uint32_t b, uint32_t a) {
 	/* TODO: shift = ? */
 	shift = (fb.exponent == 0 ? fb.exponent + 1 : fb.exponent) - (fa.exponent == 0 ? fa.exponent + 1 : 
 fa.exponent);
-	// printf("\e[0;31mhaha\e[0m\n");
 	assert(shift >= 0);
 
 	sig_a = (sig_a << 3); // guard, round, sticky
@@ -166,12 +163,10 @@ fa.exponent);
 	}
 
 	// fraction add
-	printf("sig_a%x\tsig_b%x\n",sig_a,sig_b);
 	if(fa.sign) { sig_a *= -1; }
 	if(fb.sign) { sig_b *= -1; }
 
 	sig_res = sig_a + sig_b;
-	printf("sig_a%x\tsig_b%x\tsig_res%x\n",sig_a,sig_b,sig_res);
 	if(sig_res == 0) { return 0; }
 
 	if(sign(sig_res)){ f.sign = 1; sig_res *= -1; }
