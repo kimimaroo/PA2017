@@ -17,10 +17,11 @@ void fpu_test_add() {
 		for(j = 0 ; j < sizeof(input)/sizeof(float) ; j++) {
 			// printf(" == %d ==\n", count++);
 			a.fval = input[i];
+			printf("a.fval%u\tinput[i]%u\t",a.fval,input[i]);
 			b.fval = input[j];
 			res.fval = a.fval + b.fval;
 			res_fpu.val = internal_float_add(b.val, a.val);
-			printf("float add a = %x, b = %f, ua = %x, ub = %x, res = %x, res_fpu = %x, res = %f, res_fpu = %f\n", a.fval, b.fval, a.val, b.val, res.val, res_fpu.val, res.fval, res_fpu.fval);
+			printf("float add a = %f, b = %f, ua = %x, ub = %x, res = %x, res_fpu = %x, res = %f, res_fpu = %f\n", a.fval, b.fval, a.val, b.val, res.val, res_fpu.val, res.fval, res_fpu.fval);
 			assert(res_fpu.val == res.val);
 		}
 	}
