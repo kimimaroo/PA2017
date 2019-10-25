@@ -164,6 +164,7 @@ fa.exponent);
 	}
 
 	// fraction add
+	printf("sig_a%x\tsig_b%x\n",sig_a,sig_b);
 	if(fa.sign) { sig_a *= -1; }
 	if(fb.sign) { sig_b *= -1; }
 
