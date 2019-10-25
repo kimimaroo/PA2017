@@ -124,14 +124,14 @@ uint32_t internal_float_add(uint32_t b, uint32_t a) {
 	// if(fa.exponent == 0x0 && fa.fraction == 0x0) { return b; }
 	// if(fb.exponent == 0x0 && fb.fraction == 0x0) { return a; }
 	
-	uint8_t fa_exponent, fb_exponent;
-	fa_exponent = (fa.exponent == 0x0) ? fa.exponent + 1 : fa.exponent;
-	fb_exponent = (fb.exponent == 0x0) ? fb.exponent + 1 : fb.exponent;
+	// uint8_t fa_exponent, fb_exponent;
+	// fa_exponent = (fa.exponent == 0x0) ? fa.exponent + 1 : fa.exponent;
+	// fb_exponent = (fb.exponent == 0x0) ? fb.exponent + 1 : fb.exponent;
 	// if(fa.exponent == 0x0) { fa.exponent += 1; }
 	// if(fb.exponent == 0x0) { fb.exponent += 1; }
 
 	// 使得默认fa右移
-	if(fa_exponent > fb_exponent) {
+	if(fa.exponent > fb.exponent) {
 		fa.val = b;
 		fb.val = a;
 	}
