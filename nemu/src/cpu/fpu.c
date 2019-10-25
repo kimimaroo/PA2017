@@ -107,9 +107,17 @@ uint32_t internal_float_add(uint32_t b, uint32_t a) {
 	// infity, NaN
 	if(fa.exponent == 0xff) { return a; }
 	if(fb.exponent == 0xff) { return b; }
+	if(fa.exponent == 0x0 && fa.fraction == 0x0) { return b; }
+	if(fb.exponent == 0x0 && fb.fraction == 0x0) { return a; }
+	
+	uint8_t fa_exponent, fb_exponent;
+	fa_exponent = (fa.exponent == 0x0) ? fa.exponent + 1 : fa.exponent;
+	fb_exponent = (fb.exponent == 0x0) ? fb.exponent + 1 : fb.exponent;
+	// if(fa.exponent == 0x0) { fa.exponent += 1; }
+	// if(fb.exponent == 0x0) { fb.exponent += 1; }
 
-
-	if(fa.exponent > fb.exponent) {
+	// 使得默认fa右移
+	if(fa_exponent > fb_exponent) {
 		fa.val = b;
 		fb.val = a;
 	}
@@ -122,10 +130,11 @@ uint32_t internal_float_add(uint32_t b, uint32_t a) {
 
 	// alignment shift for fa
 	uint32_t shift = 0;
+	shift = (fb.exponent == 0 ? fb.exponent + 1 : fb.exponent) - (fa.exponent == 0 ? fa.exponent + 1 : 
+fa.exponent);
 
 	/* TODO: shift = ? */
-	printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-	assert(0);
+	printf("\e[0;31mhaha\e[0m\n");
 	assert(shift >= 0);
 
 	sig_a = (sig_a << 3); // guard, round, sticky
