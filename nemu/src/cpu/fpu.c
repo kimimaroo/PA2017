@@ -121,8 +121,8 @@ uint32_t internal_float_add(uint32_t b, uint32_t a) {
 	// infity, NaN
 	if(fa.exponent == 0xff) { return a; }
 	if(fb.exponent == 0xff) { return b; }
-	if(fa.exponent == 0x0 && fa.fraction == 0x0) { return b; }
-	if(fb.exponent == 0x0 && fb.fraction == 0x0) { return a; }
+	// if(fa.exponent == 0x0 && fa.fraction == 0x0) { return b; }
+	// if(fb.exponent == 0x0 && fb.fraction == 0x0) { return a; }
 	
 	uint8_t fa_exponent, fb_exponent;
 	fa_exponent = (fa.exponent == 0x0) ? fa.exponent + 1 : fa.exponent;
