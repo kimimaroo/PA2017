@@ -214,6 +214,9 @@ static inline bool inv_cc();
 #define condition_c \
 	cpu.eflags.CF
 
+#define condition_z \
+    cpu.eflags.ZF == 1
+
 static inline bool inv_cc() {
 	printf("Please implement cc condition in instr_helper.h\n");
 	assert(0);
