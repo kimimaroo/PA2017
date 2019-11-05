@@ -13,4 +13,11 @@
         return 1; \
     }
 
+make_impl_push(eax)
+make_impl_push(ecx)
+make_impl_push(edx)
+make_impl_push(ebx)
+make_impl_push(esp)
 make_impl_push(ebp)
+make_impl_push(esi)
+make_impl_push(edi)
