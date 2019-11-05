@@ -7,7 +7,9 @@ static void instr_execute_2op() {
     operand_write(&opr_dest);
 }
 
+make_instr_impl_2op(add, i, rm, b);
 make_instr_impl_2op(add, i, rm, v);
+make_instr_impl_2op(add, i, rm, bv);
 make_instr_impl_2op(add, r, rm, b);
 make_instr_impl_2op(add, r, rm, v);
 make_instr_impl_2op(add, rm, r, b);
