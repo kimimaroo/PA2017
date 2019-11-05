@@ -158,64 +158,85 @@ void print_asm_3(char * instr, char * suffix, uint8_t len, OPERAND * opr_1, OPER
 static inline bool inv_cc();
 
 #define condition_e \
-	inv_cc()
+	cpu.eflags.ZF == 1
 
 #define condition_a \
-	inv_cc()
+	cpu.eflags.CF == 0 && cpu.eflags.ZF == 0
 
 #define condition_ae \
-	inv_cc()
+	cpu.eflags.CF == 0
 
 #define condition_b \
-	inv_cc()
+	cpu.eflags.CF == 1
 
 #define condition_be \
-	inv_cc()
+	cpu.eflags.CF == 1 || cpu.eflags.ZF == 1
 
 #define condition_o \
-	inv_cc()
+	cpu.eflags.OF == 1
 
 #define condition_p \
-	inv_cc()
+	cpu.eflags.PF == 1
 
 #define condition_s \
-	inv_cc()
+	cpu.eflags.SF == 1
 
 #define condition_ne \
-	inv_cc()
+	cpu.eflags.ZF == 0
 
 #define condition_na \
-	inv_cc()
+	cpu.eflags.CF == 1 || cpu.eflags.ZF == 1
+
+#define condition_nb \
+    cpu.eflags.CF == 0
 
 #define condition_no \
-	inv_cc()
+	cpu.eflags.OF == 0
 
 #define condition_np \
-	inv_cc()
+	cpu.eflags.PF == 0
 
 #define condition_ns \
-	inv_cc()
+	cpu.eflags.SF == 0
 
 #define condition_g \
-	inv_cc()
+	(cpu.eflags.SF == cpu.eflags.OF) && (cpu.eflags.ZF == 0)
 
 #define condition_ge \
-	inv_cc()
+	cpu.eflags.SF == cpu.eflags.OF
 
 #define condition_l \
-	inv_cc()
+	cpu.eflags.SF != cpu.eflags.OF
 
 #define condition_le \
-	inv_cc()
+	cpu.eflags.SF != cpu.eflags.OF || cpu.eflags.ZF == 1
 
 #define condition_ecxz \
 	cpu.ecx == 0
 
 #define condition_c \
-	cpu.eflags.CF
+	cpu.eflags.CF == 1
 
 #define condition_z \
     cpu.eflags.ZF == 1
+
+#define condition_nle \
+    (cpu.eflags.SF == cpu.eflags.OF) && (cpu.eflags.ZF == 0)
+
+// #define condition_cxz \
+// 	cpu.cx == 0
+
+// #define condition_nae \
+// 	cpu.eflags.CF == 1
+
+// #define condition_nbe \
+// 	cpu.eflags.CF == 0 && cpu.eflags.ZF == 0
+
+// #define condition_nc \
+// 	cpu.eflags.CF == 0
+
+// #define condition_ng \
+//     (cpu.eflags.SF != cpu.eflags.OF) || (cpu.eflags.ZF == 1)
 
 static inline bool inv_cc() {
 	printf("Please implement cc condition in instr_helper.h\n");
