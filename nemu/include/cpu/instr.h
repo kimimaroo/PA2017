@@ -35,5 +35,6 @@ extern uint8_t data_size;
 #include "cpu/instr/inc.h"
 #include "cpu/instr/and.h"
 #include "cpu/instr/xchg.h"
+#include "cpu/instr/adc.h"
 
 #endif
