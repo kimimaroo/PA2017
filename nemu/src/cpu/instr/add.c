@@ -8,3 +8,17 @@ static void instr_execute_2op() {
 }
 
 make_instr_impl_2op(add, i, rm, v);
+
+make_instr_func(add_i2eax_v) {
+    opr_dest.type = OPR_REG;
+    opr_dest.addr = 0;
+    opr_dest.data_size = data_size;
+      
+    opr_src.type = OPR_IMM;
+    opr_src.addr = eip + 1;
+    opr_src.data_size = data_size;
+    opr_src.sreg = SREG_CS;
+    
+    instr_execute_2op();
+    return 1 + data_size / 8;
+}
