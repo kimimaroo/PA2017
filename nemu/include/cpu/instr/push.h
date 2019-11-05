@@ -9,6 +9,7 @@ make_instr_func(push_esp);
 make_instr_func(push_ebp);
 make_instr_func(push_esi);
 make_instr_func(push_edi);
+make_instr_func(push_rm_v);
 
 
 #endif
