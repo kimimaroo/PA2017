@@ -223,20 +223,6 @@ static inline bool inv_cc();
 #define condition_nle \
     (cpu.eflags.SF == cpu.eflags.OF) && (cpu.eflags.ZF == 0)
 
-// #define condition_cxz \
-// 	cpu.cx == 0
-
-// #define condition_nae \
-// 	cpu.eflags.CF == 1
-
-// #define condition_nbe \
-// 	cpu.eflags.CF == 0 && cpu.eflags.ZF == 0
-
-// #define condition_nc \
-// 	cpu.eflags.CF == 0
-
-// #define condition_ng \
-//     (cpu.eflags.SF != cpu.eflags.OF) || (cpu.eflags.ZF == 1)
 
 static inline bool inv_cc() {
 	printf("Please implement cc condition in instr_helper.h\n");
