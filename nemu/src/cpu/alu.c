@@ -123,6 +123,37 @@ uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size) {
 	return result;
 }
 
+int64_t alu_imul(int32_t src, int32_t dest, size_t data_size) {
+    assert(data_size == 8 || data_size == 16 || data_size == 32);
+    int64_t result = (int64_t)src * dest;
+         
+    switch (data_size)
+    {   
+        case 8:{
+                   int8_t temp1 = result;
+                   if (result == temp1)
+                   {
+                       cpu.eflags.CF = cpu.eflags.OF = 0;
+                   }
+               }
+        case 16:{
+                    int16_t temp2 = result;
+                    if (result == temp2)
+                    {
+                        cpu.eflags.CF = cpu.eflags.OF = 0;
+                    }
+                }
+        default:{
+                    int32_t temp3 = result;
+                    if (result == temp3)
+                    {
+                        cpu.eflags.CF = cpu.eflags.OF = 0;
+                    }
+                }
+    }
+
+	return result;
+}
 // int64_t alu_imul(int32_t src, int32_t dest, size_t data_size) {
 // 	int64_t result = 0;
 // 	int8_t src_8 = src & 0xff;
