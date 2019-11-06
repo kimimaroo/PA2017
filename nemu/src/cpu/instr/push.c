@@ -36,3 +36,4 @@ make_impl_push(esi)
 make_impl_push(edi)
 
 make_instr_impl_1op(push, rm, v)
+make_instr_impl_1op(push, i, b)
