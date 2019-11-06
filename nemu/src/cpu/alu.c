@@ -125,18 +125,18 @@ uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size) {
 
 
 int64_t alu_imul(int32_t src, int32_t dest, size_t data_size) {
-    int64_t result = (int64_t)src * dest;         
+    int64_t result = (int64_t)src * dest;
+    int8_t  temp1 = result;       
+    int16_t temp2 = result;       
+    int32_t temp3 = result;       
     switch (data_size){   
         case 8:
-			int8_t temp1 = result;
 			cpu.eflags.CF = (result == temp1) ? 0 : 1;
 			break;
 	    case 16:
-			int16_t temp2 = result;
 			cpu.eflags.CF = (result == temp2) ? 0 : 1;
 			break;
 		case 32:
-			int8_t temp3 = result;
 			cpu.eflags.CF = (result == temp3) ? 0 : 1;
 			break;
 	}
