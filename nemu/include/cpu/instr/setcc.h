@@ -17,6 +17,10 @@ make_instr_func(setl_b);
 make_instr_func(setnl_b);
 make_instr_func(setle_b);
 make_instr_func(setnle_b);
-
+make_instr_func(seta_b);
+make_instr_func(setae_b);
+make_instr_func(setc_b);
+make_instr_func(setg_b);
+make_instr_func(setge_b);
 
 #endif
