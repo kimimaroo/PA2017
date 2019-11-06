@@ -27,3 +27,17 @@ make_instr_func(call_Av)
     cpu.eip += 1 + data_size / 8 + imm.val;
     return 0;
 }
+
+make_instr_func(call_Ev)
+{
+    int len = 1;
+
+    decode_data_size_v
+    decode_operand_rm
+    push_ret_addr(len);
+
+    operand_read(&opr_src);
+    cpu.eip = opr_src.val;
+
+    return 0;
+}

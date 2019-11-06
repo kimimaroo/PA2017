@@ -8,8 +8,7 @@
         return 1; \
     }
 
-static void instr_execute_1op()
-{
+static void instr_execute_1op() {
     operand_read(&opr_src);
 
     uint32_t CF = cpu.eflags.CF;

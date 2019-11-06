@@ -124,55 +124,24 @@ uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size) {
 }
 
 int64_t alu_imul(int32_t src, int32_t dest, size_t data_size) {
-    assert(data_size == 8 || data_size == 16 || data_size == 32);
-    int64_t result = (int64_t)src * dest;
-         
-    switch (data_size)
-    {   
-        case 8:{
-                   int8_t temp1 = result;
-                   if (result == temp1)
-                   {
-                       cpu.eflags.CF = cpu.eflags.OF = 0;
-                   }
-               }
-        case 16:{
-                    int16_t temp2 = result;
-                    if (result == temp2)
-                    {
-                        cpu.eflags.CF = cpu.eflags.OF = 0;
-                    }
-                }
-        default:{
-                    int32_t temp3 = result;
-                    if (result == temp3)
-                    {
-                        cpu.eflags.CF = cpu.eflags.OF = 0;
-                    }
-                }
-    }
-
+	int64_t result = 0;
+	int8_t src_8 = src & 0xff;
+	int8_t dest_8 = dest & 0xff;
+	int16_t src_16 = src & 0xffff;
+	int16_t dest_16 = dest & 0xffff;
+	switch(data_size){
+		case 8:
+			result = src_8 * dest_8;
+			break;
+		case 16:
+			result = src_16 * dest_16;
+			break;
+		case 32:
+			result = src * dest;
+			break;
+	}
 	return result;
 }
-// int64_t alu_imul(int32_t src, int32_t dest, size_t data_size) {
-// 	int64_t result = 0;
-// 	int8_t src_8 = src & 0xff;
-// 	int8_t dest_8 = dest & 0xff;
-// 	int16_t src_16 = src & 0xffff;
-// 	int16_t dest_16 = dest & 0xffff;
-// 	switch(data_size){
-// 		case 8:
-// 			result = src_8 * dest_8;
-// 			break;
-// 		case 16:
-// 			result = src_16 * dest_16;
-// 			break;
-// 		case 32:
-// 			result = src * dest;
-// 			break;
-// 	}
-// 	return result;
-// }
 
 uint32_t alu_div(uint64_t src, uint64_t dest, size_t data_size) {
 	uint32_t result = 0;
