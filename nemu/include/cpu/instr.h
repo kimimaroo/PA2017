@@ -43,5 +43,6 @@ extern uint8_t data_size;
 #include "cpu/instr/dec.h"
 #include "cpu/instr/setcc.h"
 #include "cpu/instr/not.h"
+#include "cpu/instr/imul.h"
 
 #endif
